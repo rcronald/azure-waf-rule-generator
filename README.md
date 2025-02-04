@@ -6,7 +6,11 @@
 Ejecutar el siguiente comando para crear la regla de bloque de IPs.
 
 ```
-./script.sh my-resource-group my-waf-policy my-ip-rules blocked-ips.txt
+.\script.ps1 `
+    -ResourceGroupName "rgeudemo" `
+    -PolicyName "wafdemo" `
+    -Subdomain "hello.myapplication.com" `
+    -IpListFile "blocked-ips.txt"
 ```
 
 ### Archivo
