@@ -98,7 +98,7 @@ if ($validIPs.Count -gt 0) {
             # Create custom rule
             $rule = New-AzApplicationGatewayFirewallCustomRule `
                 -Name $ruleName `
-                -Priority $(100 + $groupIndex) `
+                -Priority $(1 + $groupIndex) `
                 -RuleType MatchRule `
                 -MatchCondition $condition1,$condition2 `
                 -Action Block
