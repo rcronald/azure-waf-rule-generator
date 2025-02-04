@@ -89,7 +89,7 @@ Get-Content $IpListFile | ForEach-Object {
                 # Create custom rule
                 $rule = New-AzApplicationGatewayFirewallCustomRule `
                     -Name $ruleName `
-                    -Priority $((100 + $ruleCounter)) `
+                    -Priority $((1 + $ruleCounter)) `
                     -RuleType MatchRule `
                     -MatchCondition $condition1,$condition2 `
                     -Action Block
