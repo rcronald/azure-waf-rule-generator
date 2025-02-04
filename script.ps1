@@ -29,6 +29,17 @@ function Test-IPAddress {
     return $false
 }
 
+# Function to create valid rule name
+function Get-ValidRuleName {
+    param(
+        [string]$IP,
+        [int]$Counter
+    )
+    # Create a simple rule name that meets Azure requirements
+    # Only alphanumeric characters are allowed
+    return "BlockIP$Counter"
+}
+
 # Check if IP list file exists
 if (-not (Test-Path $IpListFile)) {
     Write-Error "IP list file not found: $IpListFile"
@@ -62,10 +73,10 @@ Get-Content $IpListFile | ForEach-Object {
     if ($ip -and -not $ip.StartsWith("#")) {
         # Validate IP format
         if (Test-IPAddress $ip) {
-            # Create rule name
-            $ruleName = "BlockIP_$($ip.Replace('.','_').Replace('/','_'))_$($Subdomain.Replace('.','_'))"
+            # Create a valid rule name
+            $ruleName = Get-ValidRuleName -IP $ip -Counter $ruleCounter
             
-            Write-Host "Adding block rule for IP: $ip on subdomain: $Subdomain"
+            Write-Host "Adding block rule '$ruleName' for IP: $ip on subdomain: $Subdomain"
             
             # Create match conditions
             $ipMatch = New-AzApplicationGatewayFirewallMatchVariable -VariableName RemoteAddr
@@ -89,7 +100,7 @@ Get-Content $IpListFile | ForEach-Object {
                 # Update WAF policy
                 $wafPolicy | Set-AzApplicationGatewayFirewallPolicy
                 
-                Write-Host "Successfully added block rule for IP: $ip"
+                Write-Host "Successfully added rule '$ruleName' for IP: $ip"
                 $ruleCounter++
             }
             catch {
