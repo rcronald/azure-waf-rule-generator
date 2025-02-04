@@ -7,8 +7,8 @@ Ejecutar el siguiente comando para crear la regla de bloque de IPs.
 
 ```
 .\script.ps1 `
-    -ResourceGroupName "rgeudemo" `
-    -PolicyName "wafdemo" `
+    -ResourceGroupName "rg-waf-001" `
+    -PolicyName "waf-policy-001" `
     -Subdomain "hello.myapplication.com" `
     -IpListFile "blocked-ips.txt"
 ```

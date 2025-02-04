@@ -101,7 +101,7 @@ if ($validIPs.Count -gt 0) {
                 -Priority $(1 + $groupIndex) `
                 -RuleType MatchRule `
                 -MatchCondition $condition1,$condition2 `
-                -Action Block
+                -Action Allow
             
             # Add rule to policy
             $wafPolicy.CustomRules.Add($rule)
