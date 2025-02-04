@@ -122,3 +122,6 @@ if ($validIPs.Count -gt 0) {
 else {
     Write-Warning "No valid IPs found in the input file"
 }
+
+# Example usage:
+# .\block-waf-ips.ps1 -ResourceGroupName "my-resource-group" -PolicyName "my-waf-policy" -Subdomain "hello.myapplication.com" -IpListFile "blocked-ips.txt"
